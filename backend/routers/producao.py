@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, Query
 import requests
 from bs4 import BeautifulSoup
+from typing import List, Dict
 
 router = APIRouter()
 
@@ -9,6 +10,7 @@ router = APIRouter()
     "/{ano}/{item}",
     summary="Buscar dados de produção",
     description="Recupera dados sobre um item específico dos dados de produção para um determinado ano.",
+    response_model=List[Dict[str, str]],
 )
 async def pegar_dados_producao(ano: int, item: str):
     """

@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
 import requests
 from bs4 import BeautifulSoup
+from typing import List, Dict
 
 router = APIRouter()
 
@@ -17,6 +18,7 @@ category_mapping = {
     "/{ano}/{categoria}",
     summary="Buscar dados de exportação",
     description="Recupera dados de exportação para uma categoria específica e ano.",
+    response_model=List[Dict[str, str]],
 )
 async def pegar_dados_exportacao(ano: int, categoria: str):
     """

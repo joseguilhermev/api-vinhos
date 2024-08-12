@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
 import requests
 from bs4 import BeautifulSoup
+from typing import List, Dict
 
 router = APIRouter()
 
@@ -17,6 +18,7 @@ category_mapping = {
     "/{ano}/{categoria}/{item}",
     summary="Buscar dados de processamento",
     description="Recupera dados de processamento para um item específico, categoria e ano.",
+    response_model=List[Dict[str, str]],
 )
 async def pegar_dados_processamento(ano: int, categoria: str, item: str):
     """
@@ -66,7 +68,7 @@ async def pegar_dados_processamento(ano: int, categoria: str, item: str):
         elif capture and "tb_subitem" in cells[0].get("class", []):
             data.append(
                 {
-                    "Produto": cells[0].text.strip(),
+                    "Cultivar": cells[0].text.strip(),
                     "Quantidade (Kg)": cells[1].text.strip(),
                 }
             )
