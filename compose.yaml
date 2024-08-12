@@ -1,13 +1,15 @@
 services:
   web:
-    image: python:3.9
-    working_dir: /api-vinhos/backend
+    image: python:3.12.5-slim
+    working_dir: /app
     volumes:
-      - ./backend:/app/backend
+      - .:/app
     ports:
       - "8000:8000"
+    environment:
+      - PYTHONPATH=/app/backend
     command: >
       sh -c "
-      pip install --no-cache-dir -r /app/backend/requirements.txt &&
-      uvicorn main:app --host 0.0.0.0 --port 8000
+      pip install --no-cache-dir -r /app/requirements.txt &&
+      uvicorn backend.main:app --host 0.0.0.0 --port 8000
       "
